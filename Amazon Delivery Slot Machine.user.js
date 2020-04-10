@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon Delivery Slot Machine
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Automate checking for an available delivery slot on amazon. Mostly just refreshes and then beeps when found. Should handle re-login as well. Needs more testing.
 // @author       Charlie Huckel
 // @match        https://www.amazon.com/gp/buy/shipoptionselect/handlers/display.html*
@@ -17,6 +17,7 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_deleteValue
+// @run-at       document-idle
 /* globals       $ */
 
 // ==/UserScript==
@@ -79,14 +80,14 @@
         let $email = $('#ap_email');
         let $pass = $('#ap_password');
         // Email sign-in
-        if ($email && $email.type !== 'hidden' && GM_getValue('login','').length > 0) {
-            $email.value = GM_getValue('login');
+        if ($email && $email.is(":visible") && GM_getValue('login','').length > 0) {
+            $email.val(GM_getValue('login'));
             $('#continue').click();
             logger('Entered login to sign in');
         }
         // Password sign-in
-        else if($pass && $pass.type !== 'hidden' && GM_getValue('password','').length > 0) {
-            $pass.value = GM_getValue('password');
+        if($pass && $pass.is(":visible") && GM_getValue('password','').length > 0) {
+            $pass.val(GM_getValue('password'));
             $('#signInSubmit').click();
             logger('Entered password to sign in');
         }
