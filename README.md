@@ -23,7 +23,10 @@ quickly select an available slot and continue.
 
 - The process can be canceled by clicking "Cancel Automated Check" on the "Reserve a Time Slot". This is the main page which is refreshed.
 - Status messages are also added to the "Reserve a Time Slot" page telling how long it has been running and how in how many seconds it will refresh.
+- When the process is started a single "coin" audio sound will play. This is the same sound that will play on repeat as an alarm later. If you can't hear this sound, you will not hear the alarm and there's no point to this code.
 - Everything is local, no data is sent anywhere in connection with this code outside of the obvious interaction with amazon pages.
+- The stored login & pass are only stored for the duration of the automated check process, afterwhich time they are deleted. Although they are only stored locally, if a malicous user has access to your computer they could conceivably gain access to this data. For that reason we do not store these credentials more an absolutely necessary. Additionally the user need not provide their credentials to get about two hours of automated checking from this code. 
+
 
 ### Issues
 - Testing, this has not been tested extensively.
