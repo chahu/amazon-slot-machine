@@ -66,6 +66,7 @@
         GM_deleteValue('first_refresh');
         GM_deleteValue('last_refresh');
         GM_deleteValue('iteration');
+        logger('Clearing all saved values');
     }
 
     function isRunning() {
@@ -115,7 +116,7 @@
                 setTimeout(function(){ location.reload(); }, seconds * 1000);
                 GM_setValue('last_refresh', now.getTime());
                 GM_setValue('iteration', iteration);
-                var runningTime = Math.floor((now.getTime() - GM_getValue('first_refresh')) / 60000)
+                var runningTime = Math.floor((now.getTime() - GM_getValue('first_refresh')) / 60000);
                 logger(`Reloading in ${seconds} seconds, running for ${runningTime} ${runningTime === 1 ? "minute" : "minutes"}, iteration #${iteration}`, container);
                 $('<input type="button" value="Cancel Automated Check" style="margin: 10px 0" />')
                     .appendTo(container)
@@ -169,12 +170,17 @@
     }
     */
     // On Before you checkout page (asking you to buy more stuff)
-    else if ($('#a-autoid-0 a').length) {
-        $('#a-autoid-0 a').click();
+    else if (document.title.match("Before you checkout")) {
+        let href = $('a.a-button-text[name="proceedToCheckout"]:visible').first().attr('href');
+        if (href) {
+            window.location.href = href;
+            logger(`Continue on "${document.title}" page`);
+        }
     }
     // On Substitution page (whole foods)
     else if ($('#subsContinueButton input.a-button-input[type="submit"]').length) {
         $('#subsContinueButton input.a-button-input[type="submit"]').click();
+        logger(`Continue on "${document.title}" page`);
     }
     // On Shopping Cart page
     else if (document.title.match("Shopping Cart")) {
