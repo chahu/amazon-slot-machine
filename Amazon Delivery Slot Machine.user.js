@@ -188,7 +188,7 @@
         logger('Checking out');
     }
     // Not on shopping cart page, but maybe we should be
-    else if ($('#nav-cart-count').length && parseInt($('#nav-cart-count').innerText) > 0) {
+    else if ($('#nav-cart-count').length && parseInt($('#nav-cart-count').text()) > 0) {
         $('#nav-cart-count').click();
         logger('Going to Shopping Cart');
     }
