@@ -23,7 +23,7 @@ quickly select an available slot and continue.
 
 - The process can be canceled by clicking "Cancel Automated Check" on the "Reserve a Time Slot". This is the main page which is refreshed.
 - Status messages are also added to the "Reserve a Time Slot" page telling how long it has been running and how in how many seconds it will refresh.
-- 
+- Everything is local, no data is sent anywhere in connection with this code outside of the obvious interaction with amazon pages.
 
 ### Issues
 - Testing, this has not been tested extensively.
