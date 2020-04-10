@@ -24,7 +24,7 @@
 (function() {
     'use strict';
     const config = {
-        audio: 'https://freesound.org/data/previews/341/341695_5858296-lq.mp3',
+        audio: 'https://github.com/chahu/amazon-slot-machine/raw/master/coin.mp3',
         color: '#e47911',
         elem: 'h5',
         minRefresh: 30,
