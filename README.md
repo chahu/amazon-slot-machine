@@ -2,8 +2,8 @@
 Automate finding an available delivery slot for Amazon Fresh &amp; Whole Foods
 
 ### Installation
-1. Install [Tampermonkey extension for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-2. [Click here](https://github.com/chahu/amazon-slot-machine/raw/master/Amazon%20Delivery%20Slot%20Machine.user.js) then install with Tampermonkey
+1. Install the [Tampermonkey extension](https://www.tampermonkey.net/). I've tested this on [Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) but this should work across other browsers supported by Tampermonkey as well (Microsoft Edge, Safari, Opera Next, and Firefox).
+2. [Click here](https://github.com/chahu/amazon-slot-machine/raw/master/Amazon%20Delivery%20Slot%20Machine.user.js), then install with Tampermonkey
 
 ### Overview
 
