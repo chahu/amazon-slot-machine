@@ -110,7 +110,7 @@
         if (available > 0) {
             if (isRunning()) {
                 beep(true, container);
-                logger(`${available} AVAILABLE DELIVERY SLOT(S) FOUND!`, container);   // TODO: available is being calculated wrong, investigate
+                logger(`AVAILABLE DELIVERY SLOT(S) FOUND!`, container);
                 clearAll();
             }
         }
