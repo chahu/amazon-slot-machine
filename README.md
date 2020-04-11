@@ -34,6 +34,7 @@ quickly select an available slot and continue. The final steps of checkout are n
 ### Tips
 
 - To make sure you have installed this script successfully. Go to [amazon.com](https://www.amazon.com) and verify you can see the Tampermonkey icon with a red circle and number on it, like below:
+
 ![Successful Installation](/images/success.png)
 - Make sure you hear a sound when you start the process. If you don't, you won't hear the alarm.
 - Once you find a delivery slot that works for you, select it quickly. Amazon will then reserve the delivery time for 60 mintes for you to continue shopping.
