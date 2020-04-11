@@ -50,6 +50,13 @@
         }
     }
 
+    // Repeat some function with exponential backof (2x) starting at min seconds, stopping when above max
+    function timerBackoff(f, min=2, max=32) {
+        if (min <= max) {
+            setTimeout(() => { f(); timerBackoff(f, min * 2, max) }, min * 1000);
+        }
+    }
+
     function logger(msg, appendToElem) {
         let now = new Date();
         console.log("[" + now.toLocaleString() + "] " + msg);
@@ -62,7 +69,7 @@
     }
 
     function clearAll() {
-        for (let key of GM.listValues()) {
+        for (let key of GM_listValues()) {
             GM_deleteValue(key);
             logger(`Deleting saved value "${key}"`);
         }
@@ -102,7 +109,7 @@
         if (available > 0) {
             if (isRunning()) {
                 beep(true, container);
-                logger(`${available} AVAILABLE DELIVERY SLOT(S) FOUND!`, container);	// TODO: available is being calculated wrong, investigate
+                logger(`${available} AVAILABLE DELIVERY SLOT(S) FOUND!`, container);   // TODO: available is being calculated wrong, investigate
                 clearAll();
             }
         }
@@ -162,28 +169,19 @@
     else if (document.title.match("Sign-In")) {
         handleLogin();
     }
-    /*
-    // Not logged in
-    else if ($('#nav-flyout-ya-signin a')) {
-        $('#nav-flyout-ya-signin a').click();
-    }
-    */
     // On Before you checkout page (asking you to buy more stuff)
     else if (document.title.match("Before you checkout")) {
-        let href = $('a.a-button-text[name="proceedToCheckout"]:visible').first().attr('href');
-        if (href) {
-            window.location.href = href;
-            logger(`Continue on "${document.title}" page`);
-        }
+        // Page isn't immediately ready for the click(), so delay the click (and keep trying)
+        timerBackoff(() => { $('#a-autoid-0 a')[0].click(); logger(`Continue on "${document.title}" page`);});
     }
     // On Substitution page (whole foods)
     else if ($('#subsContinueButton input.a-button-input[type="submit"]').length) {
-        $('#subsContinueButton input.a-button-input[type="submit"]').click();
-        logger(`Continue on "${document.title}" page`);
+        // Page isn't immediately ready for the click(), so delay the click (and keep trying)
+        timerBackoff(() => {$('#subsContinueButton-announce').click(); logger(`Continue on "${document.title}" page`);});
     }
     // On Shopping Cart page
     else if (document.title.match("Shopping Cart")) {
-        $('#gutterCartViewForm input.a-button-input[value="Proceed to checkout"]').click();
+        $('#gutterCartViewForm input.a-button-input[value="Proceed to checkout"]').first().click();
         logger('Checking out');
     }
     // Not on shopping cart page, but maybe we should be
