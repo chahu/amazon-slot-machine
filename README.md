@@ -31,5 +31,5 @@ quickly select an available slot and continue.
 
 
 ### Issues
-- Testing, this has not been tested extensively.
+- Testing, so far only I have tested this on Chrome (Windows 10). 
 - Submit Issues/Bugs to help improve this
