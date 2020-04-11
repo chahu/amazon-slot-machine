@@ -22,8 +22,8 @@ quickly select an available slot and continue.
 ### Features
 
 - Minimal requirements (a modern browser with Tampermonkey)
-- Simple integration: To start you'll see this on the delivery slot page: ![Screenshot](https://raw.githubusercontent.com/chahu/amazon-slot-machine/master/images/start.png)
-- Updated status message letting you know it is still running and some simple info: ![Screenshot](https://raw.githubusercontent.com/chahu/amazon-slot-machine/master/images/reload.png)
+- Simple integration: To start you'll see this on the delivery slot page: ![Screenshot](images/start.png)
+- Updated status message letting you know it is still running and some simple info: ![Screenshot](images/reload.png)
 - Cancelling is also done with one click (above).
 - When the process is started a single "coin" audio sound will play. This is the same sound that will play on repeat as an alarm later. Make sure you can hear this sound when you click start.
 - Everything is local, no data is sent anywhere in connection with this code outside of the obvious interaction with amazon pages.
