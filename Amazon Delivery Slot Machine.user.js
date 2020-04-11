@@ -62,12 +62,10 @@
     }
 
     function clearAll() {
-        GM_deleteValue('login');
-        GM_deleteValue('password');
-        GM_deleteValue('first_refresh');
-        GM_deleteValue('last_refresh');
-        GM_deleteValue('iteration');
-        logger('Clearing all saved values');
+        for (let key of GM.listValues()) {
+            GM_deleteValue(key);
+            logger(`Deleting saved value "${key}"`);
+        }
     }
 
     function isRunning() {
@@ -104,7 +102,7 @@
         if (available > 0) {
             if (isRunning()) {
                 beep(true, container);
-                logger(`${available} AVAILABLE DELIVERY SLOT(S) FOUND!`, container);
+                logger(`${available} AVAILABLE DELIVERY SLOT(S) FOUND!`, container);	// TODO: available is being calculated wrong, investigate
                 clearAll();
             }
         }
