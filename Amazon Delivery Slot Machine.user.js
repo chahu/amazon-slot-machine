@@ -26,7 +26,7 @@
     };
     let player;
 
-    function beep(forever, appendToElem) {
+    function beep(forever) {
         if (!player) { // Lazy load only when needed
             player = document.createElement('audio');
             player.src = config.audio;
@@ -34,12 +34,7 @@
         }
         if (forever) {
             let timer = setInterval(function() { player.play(); }, 1000);
-            if (appendToElem) {
-                $('<p><button>Stop Alarm</button></p>').click(function(event) {
-		    event.stopPropagation();
-		    clearInterval(timer);
-		}).appendTo(appendToElem);
-            }
+	    $(document.body).click(() => clearInterval(timer)); // Stop playing alarm if user clicks anywhere
         }
         else {
             player.play();
@@ -104,7 +99,7 @@
 
         if (available > 0) {
             if (isRunning()) {
-                beep(true, container);
+                beep(true);
                 logger(`AVAILABLE DELIVERY SLOT(S) FOUND!`, container);
                 clearAll();
             }
