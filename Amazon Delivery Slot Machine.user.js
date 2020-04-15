@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon Delivery Slot Machine
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7
 // @description  Automate checking for an available delivery slot on amazon. Mostly just refreshes and then beeps when found. Should handle re-login as well. Needs more testing.
 // @author       Charlie Huckel
 // @match        https://www.amazon.com/gp/buy/shipoptionselect/handlers/display.html*
@@ -45,7 +45,10 @@
         if (forever) {
             let timer = setInterval(function() { player.play(); }, 1000);
             if (appendToElem) {
-                $('<p><button>Stop Alarm</button></p>').click(() => clearInterval(timer)).appendTo(appendToElem);
+                $('<p><button>Stop Alarm</button></p>').click(function(event) {
+		    event.stopPropagation();
+		    clearInterval(timer);
+		}).appendTo(appendToElem);
             }
         }
         else {
