@@ -74,7 +74,7 @@
     function isRunning() {
         let lastRefresh = GM_getValue('last_refresh', 0);
         let now = new Date().getTime();
-        return (now - lastRefresh) < ((config.maxRefresh + 60) * 1000); // Just guess based on how recent the last refresh was
+        return (now - lastRefresh) < ((config.maxRefresh + 120) * 1000); // Just guess based on how recent the last refresh was
     }
 
     function handleLogin() {
