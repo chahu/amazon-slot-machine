@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Amazon Delivery Slot Machine
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  Automate checking for an available delivery slot on amazon. Mostly just refreshes and then beeps when found. Should handle re-login as well. Needs more testing.
 // @author       Charlie Huckel
 // @match        https://www.amazon.com/gp/buy/shipoptionselect/handlers/display.html*
+// @match        https://www.amazon.com/gp/buy/itemselect/handlers/continue.html*
 // @match        https://www.amazon.com/gp/buy/signin/handlers/continue.html*
 // @match        https://www.amazon.com/gp/cart/desktop/go-to-checkout.html*
 // @match        https://www.amazon.com/gp/cart/view.html*
@@ -30,7 +31,7 @@
         color: '#e47911',
         elem: 'h5',
         minRefresh: 30,
-        maxRefresh: 90, // refreshing between 30 to 90 seconds should [hopefully] be considered benign
+        maxRefresh: 70, // refreshing between 30 to 70 seconds should [hopefully] be considered benign
     };
     let player;
 
@@ -179,6 +180,10 @@
     else if ($('#subsContinueButton input.a-button-input[type="submit"]').length) {
         // Page isn't immediately ready for the click(), so delay the click (and keep trying)
         timerBackoff(() => {$('#subsContinueButton-announce').click(); logger(`Continue on "${document.title}" page`);});
+    }
+    // On Change Quantities / Out of Stock page
+    else if (document.title.match("Edit Quantities")) {
+        timerBackoff(() => {$('input.a-button-text[value="Continue"]').click(); logger(`Continue on "${document.title}" page`);});
     }
     // On Shopping Cart page
     else if (document.title.match("Shopping Cart")) {
