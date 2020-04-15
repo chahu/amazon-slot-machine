@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Amazon Delivery Slot Machine
 // @namespace    http://tampermonkey.net/
-// @version      0.8
-// @description  Automate checking for an available delivery slot on amazon. Mostly just refreshes and then beeps when found. Should handle re-login as well. Needs more testing.
+// @version      0.9
+// @description  Automate reserving an Amazon Fresh or Whole Foods delivery time slot. This works by refreshing until an available delivery time slot is available and then sounds an alarm when found. Can handle re-login as well. Cross platform support.
 // @author       Charlie Huckel
 // @match        https://www.amazon.com/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -22,7 +22,7 @@
         color: '#e47911',
         elem: 'h5',
         minRefresh: 30,
-        maxRefresh: 70, // refreshing between 30 to 70 seconds should [hopefully] be considered benign
+        maxRefresh: 70, // 30 to 70 seconds refresh should [hopefully] be considered benign
     };
     let player;
 
@@ -34,14 +34,15 @@
         }
         if (forever) {
             let timer = setInterval(function() { player.play(); }, 1000);
-	    $(document.body).click(() => clearInterval(timer)); // Stop playing alarm if user clicks anywhere
+            // Stop playing alarm if user clicks anywhere
+            $(document.body).click(() => clearInterval(timer));
         }
         else {
             player.play();
         }
     }
 
-    // Repeat some function with exponential backof (2x) starting at min seconds, stopping when above max
+    // Repeat function with (2x) exponential backof from min seconds to <= max
     function timerBackoff(f, min=2, max=32) {
         if (min <= max) {
             setTimeout(() => { f(); timerBackoff(f, min * 2, max) }, min * 1000);
@@ -53,7 +54,8 @@
         console.log("[" + now.toLocaleString() + "] " + msg);
         if (appendToElem) {
             try {
-                $(`<${config.elem} style="color:${config.color}">[${now.toLocaleString()}] ${msg}</${config.elem}>`).appendTo(appendToElem);
+                $(`<${config.elem} style="color:${config.color}">[${now.toLocaleString()}] ${msg}</${config.elem}>`)
+                    .appendTo(appendToElem);
             }
             catch (e) { }
         }
@@ -69,7 +71,8 @@
     function isRunning() {
         let lastRefresh = GM_getValue('last_refresh', 0);
         let now = new Date().getTime();
-        return (now - lastRefresh) < ((config.maxRefresh + 120) * 1000); // Just guess based on how recent the last refresh was
+        // Just guess based on how recent the last refresh was
+        return (now - lastRefresh) < ((config.maxRefresh + 120) * 1000);
     }
 
     function handleLogin() {
@@ -90,7 +93,8 @@
     }
 
     function reserveTime() {
-        let container = $('#ss-migration-banner-DELIVERY div')[0] || $('div.a-alert-container h4.a-alert-heading:visible').parent()[0];
+        let container = $('#ss-migration-banner-DELIVERY div')[0]
+                     || $('div.a-alert-container h4.a-alert-heading:visible').parent()[0];
         let available = 0;
         // Whole Foods:
         available += $('div.ufss-slot-price-container span.ufss-slot-price-text:contains("$")').length;
@@ -147,32 +151,47 @@
         }
     }
 
+    /***************************************************************
+     * Remaining logic checks current page and handles accordingly *
+     ***************************************************************/
+
     // Schedule your order
     if (document.title.match('Reserve a Time Slot')) {
         reserveTime();
     }
-    // The stuff below should only be done if we think we are currently trying to automate checkout
     else if (!isRunning()) {
-        clearAll(); // Don't store anything if we're not running, in particular login/pass
+        clearAll(); // Don't store anything (e.g. login/pass)
         return;
     }
+
+    /***************************************************************
+     * Below only executes when currently searching for time slots *
+     ***************************************************************/
+
     // On sign in page
     else if (document.title.match("Sign-In")) {
         handleLogin();
     }
     // On Before you checkout page (asking you to buy more stuff)
     else if (document.title.match("Before you checkout")) {
-        // Page isn't immediately ready for the click(), so delay the click (and keep trying)
-        timerBackoff(() => { $('#a-autoid-0 a')[0].click(); logger(`Continue on "${document.title}" page`);});
+        timerBackoff(() => {
+            $('#a-autoid-0 a')[0].click();
+            logger(`Continue on "${document.title}" page`);
+        });
     }
     // On Substitution page (whole foods)
     else if ($('#subsContinueButton input.a-button-input[type="submit"]').length) {
-        // Page isn't immediately ready for the click(), so delay the click (and keep trying)
-        timerBackoff(() => {$('#subsContinueButton-announce').click(); logger(`Continue on "${document.title}" page`);});
+        timerBackoff(() => {
+            $('#subsContinueButton-announce').click();
+            logger(`Continue on "${document.title}" page`);
+        });
     }
     // On Change Quantities / Out of Stock page
     else if (document.title.match("Edit Quantities")) {
-        timerBackoff(() => {$('input.a-button-text[value="Continue"]').click(); logger(`Continue on "${document.title}" page`);});
+        timerBackoff(() => {
+            $('input.a-button-text[value="Continue"]').click();
+            logger(`Continue on "${document.title}" page`);
+        });
     }
     // On Shopping Cart page
     else if (document.title.match("Shopping Cart")) {
