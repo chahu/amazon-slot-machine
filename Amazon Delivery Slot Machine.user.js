@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Amazon Delivery Slot Machine
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Automate checking for an available delivery slot on amazon. Mostly just refreshes and then beeps when found. Should handle re-login as well. Needs more testing.
 // @author       Charlie Huckel
 // @match        https://www.amazon.com/gp/buy/shipoptionselect/handlers/display.html*
 // @match        https://www.amazon.com/gp/buy/itemselect/handlers/continue.html*
 // @match        https://www.amazon.com/gp/buy/signin/handlers/continue.html*
+// @match        https://www.amazon.com/gp/yourstore*
 // @match        https://www.amazon.com/gp/cart/desktop/go-to-checkout.html*
 // @match        https://www.amazon.com/gp/cart/view.html*
 // @match        https://www.amazon.com/ap/signin*
