@@ -42,5 +42,5 @@ quickly select an available slot and continue. The final steps of checkout are n
 
 ### Issues
 - If you have both Amazon Fresh and Whole Foods items in your cart and when the script tries to log back in and checkout for you (after two hours), it will checkout with whichever is shown first in your shopping cart (Amazon Fresh). I'm not convinced this is worth addressing.
-- Testing; I have tested this on Chrome (Windows 10) and reports that it works on Mac.
+- Testing; I have tested this on Chrome (Windows 10 & Ubuntu Linux) and reports that it works on Mac.
 - Please submit Issues/bugs to help improve this. Provide the URL where something went wrong and possibly a screenshot or description of what you see. Optionally provide information from the console log, if you know what that is.
