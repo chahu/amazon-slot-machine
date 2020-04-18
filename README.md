@@ -2,7 +2,7 @@
 Automate finding an available delivery slot for Amazon Fresh &amp; Whole Foods
 
 ### Installation
-1. Install the [Tampermonkey extension](https://www.tampermonkey.net/). This should work on modern browsers (Chrome, Firefox, Safari, Opera Next, and Microsoft Edge) across operating systems.
+1. Install the [Tampermonkey extension](https://www.tampermonkey.net/) in your browser. I recommend using Chrome, but other modern browsers likely work.
 2. [Click here](https://github.com/chahu/amazon-slot-machine/raw/master/Amazon%20Delivery%20Slot%20Machine.user.js) to install with Tampermonkey
 ![Install Screenshot](/images/install.png)
 3. Checkout like normal with your Amazon Fresh or Whole Foods order on amazon.com. On the delivery slots page you'll see a message from this script (screenshots below).
@@ -33,14 +33,14 @@ quickly select an available slot and continue. The final steps of checkout are n
 
 ### Tips
 
+- Keep your computer on. If your computer goes to sleep or shuts off this process will also stop.
+- Keep your speakers on. You should you hear a sound play when you click "Start Automated Check". This is the same sound that will play on a loop as an alarm.
 - To make sure you have installed this script successfully. Go to [amazon.com](https://www.amazon.com) and verify you can see the Tampermonkey icon with a red circle and number on it, like below:
 
 ![Successful Installation](/images/success.png)
-- Make sure you hear a sound when you start the process. If you don't, you won't hear the alarm.
-- Once you find a delivery slot that works for you, select it quickly. Amazon will then reserve the delivery time for 60 mintes for you to continue shopping.
-- Keep your computer on. If your computer goes to sleep or shuts off this process will also stop.
+- Once you find a delivery slot that works for you, select it quickly. You can then checkout immediately, or continue shopping and adding items. Amazon will reserve your spot for 60 minutes. It's possible some out-of-stock items were removed from your cart, so it doesn't hurt to check if you want to add anything last minute before checking out.
 
 ### Issues
 - If you have both Amazon Fresh and Whole Foods items in your cart and when the script tries to log back in and checkout for you (after two hours), it will checkout with whichever is shown first in your shopping cart (Amazon Fresh). I'm not convinced this is worth addressing.
 - Testing; I have tested this on Chrome (Windows 10) and reports that it works on Mac.
-- Submit Issues/Bugs to help improve this
+- Please submit Issues/bugs to help improve this. Provide the URL where something went wrong and possibly a screenshot or description of what you see. Optionally provide information from the console log, if you know what that is.
