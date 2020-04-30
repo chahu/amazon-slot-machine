@@ -40,6 +40,8 @@ quickly select an available slot and continue. The final steps of checkout are n
 ![Successful Installation](/images/success.png)
 - Once you find a delivery slot that works for you, select it quickly. You can then checkout immediately, or continue shopping and adding items. Amazon will reserve your spot for 60 minutes. It's possible some out-of-stock items were removed from your cart, so it doesn't hurt to check if you want to add anything last minute before checking out.
 
+![Delivery Slot Reserved 60 Minutes](/images/reserveslot.png)
+
 ### Issues
 - If you have both Amazon Fresh and Whole Foods items in your cart and when the script tries to log back in and checkout for you (after two hours), it will checkout with whichever is shown first in your shopping cart (Amazon Fresh). I'm not convinced this is worth addressing.
 - Testing; I have tested this on Chrome (Windows 10 & Ubuntu Linux) and reports that it works on Mac.
